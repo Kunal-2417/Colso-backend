@@ -36,6 +36,7 @@ print("Model path exists:", os.path.exists(MODEL_PATH))
 model = load_model(MODEL_PATH)
 
 # MongoDB Connection
+
 MONGO_URI = os.getenv("MONGO_URI")
 DB_NAME = os.getenv("MONGO_DB", "fashion_ai_db")
 COLLECTION_NAME = os.getenv("MONGO_COLLECTION", "clothing_items")
@@ -175,8 +176,10 @@ async def delete_item(item_id: str):
 @app.put("/items/{item_id}")
 async def update_item(item_id: str, data: dict = Body(...)):
     update_data = {}
+
     if "clothing_type" in data:
         update_data["clothing_type"] = data["clothing_type"]
+
 
     if not update_data:
         return {"message": "No valid fields to update"}
